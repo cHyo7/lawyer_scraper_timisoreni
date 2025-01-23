@@ -3,15 +3,20 @@ from bs4 import BeautifulSoup
 import pandas as pd
 
 # Step 1: Initialize the base URL and number of pages
-base_url = 'https://www.timisoreni.ro/info/avocati?page='
-total_pages = 35  # Total pages to scrape (adjust based on how many pages exist)
+base_url = 'https://www.timisoreni.ro/info/avocati'
+total_pages = 69  # Total pages to scrape
 
 # Step 2: Create a list to store the lawyer data
 lawyer_data = []
 
 # Step 3: Loop through all pages
 for page_num in range(1, total_pages + 1):
-    url = f'{base_url}{page_num}'  # Construct the URL for the current page
+    # Construct the URL for the current page
+    if page_num == 1:
+        url = base_url  # The first page does not have a numbered suffix
+    else:
+        url = f'{base_url}/{page_num}.htm'
+
     response = requests.get(url)
 
     # Check if the request was successful
